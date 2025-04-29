@@ -1,0 +1,2 @@
+*.exe filter=lfs diff=lfs merge=lfs -text 
+WhispaApp-Setup.exe filter=lfs diff=lfs merge=lfs -text
