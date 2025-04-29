@@ -1,123 +1,107 @@
-# Whispa App
+# Whispa App 🎙️➡️📝➡️🌍
 
-**Audio Transcription & Translation Tool**  
-Version: 2.1.0
+[![PyPI Version](https://img.shields.io/pypi/v/whispa-app)](https://pypi.org/project/whispa-app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Windows Installer](https://img.shields.io/badge/Download-Windows_Installer-blue)](https://github.com/damoojeje/Whispa_App/releases/latest)
 
----
-
-## Overview
-
-Whispa App is a desktop GUI for:
-
-- **Transcribing** audio files to text using OpenAI’s **Whisper** models  
-- **Translating** the transcribed text into multiple target languages via **MarianMT**
-
-Built with:
-- **Python 3.10+**
-- **CustomTkinter** (modern Tkinter theming)
-- **PyTorch** and **faster-whisper** for transcription
-- **Transformers** and **MarianMT** for translation
-- **psutil** for live system stats
+**Audio Transcription & Translation Desktop GUI**  
+*Powered by OpenAI's Whisper and MarianMT*
 
 ---
 
-## Key Features
+## Features ✨
 
-- **Five** Whisper model sizes: `tiny`, `base`, `small`, `medium`, `large`  
-- Translate into **Spanish**, **French**, **German**, **Chinese**, **Japanese**  
-- **Advanced settings**: VRAM threshold, beam sizes, VAD filter, temperature, length penalty  
-- **Progress bars** and real-time status updates  
-- **Local caching** for offline use after initial download  
+- **Audio Transcription**  
+  Convert WAV/MP3/M4A files to text using 5 Whisper model sizes  
+  `tiny` | `base` | `small` | `medium` | `large`
 
----
+- **Text Translation**  
+  Supports Spanish, French, German, Chinese, Japanese
 
-## System Requirements
+- **System Monitoring**  
+  Real-time CPU/RAM/GPU usage stats
 
-- **OS**: Windows 10 or later  
-- **Python**: 3.10 or higher (if installing via pip)  
-- **CPU** only by default; GPU supported via extra install  
-- **Internet**: Required only for first-run model downloads  
+- **Cross-Platform**  
+  Windows installer available • Python package for developers
 
 ---
 
-## Installation
+## Installation 🛠️
 
-### 📝 Option A: Windows Installer (Recommended)
+### Windows Users
+[Download the installer](https://github.com/damoojeje/Whispa_App/releases/latest) (160MB)  
+1. Run `WhispaApp-Setup.exe`
+2. Follow installation prompts
+3. Launch from Start Menu
 
-1. Download `WhispaApp-2.1.0-Setup.exe`.  
-2. Run the installer and follow the prompts.  
-3. A console window will show **pip** and **model** download progress.  
-4. Launch **Whispa App** from the Start Menu when done.
-
-### 🐍 Option B: pip (Requires Python Installed)
-
+### Python Developers
 ```bash
-# CPU-only
-pip install whispa_app[cpu]
+# 1. Install CPU-optimized PyTorch
+pip install torch --index-url https://download.pytorch.org/whl/cpu
 
-# (Optional) GPU support
-pip install torch --index-url https://download.pytorch.org/whl/cu118
-pip install whispa_app[gpu]
+# 2. Install Whispa App
+pip install whispa_app
 
+# 3. Download models (first time)
+whispa --prefetch
 
-# Download all models (first time only)
-whispa-prefetch
-
-# Launch the GUI
-whispa
+# 4. Launch GUI
 
 
+Usage Guide 📖
 Quick Start
-Browse for an audio file (.wav, .mp3, .m4a).
+Browse for an audio file
 
-Select a Whisper model size and click Transcribe.
+Select Model:
+Model Selection
 
-Choose a target Language and click Translate.
+Transcribe: Real-time progress tracking
 
-(Optional) Open Advanced to tweak VRAM, beam sizes, VAD, etc.
+Translate: Choose target language
 
-Save results via File → Save Transcript/Save Translation.
+Save: Export as TXT or clipboard
 
 Advanced Settings
-Setting   What it does
-Min GPU VRAM (GB)   Minimum VRAM before falling back to CPU inference
-Transcription Beam  Beam width for Whisper (higher = more accurate, slower)
-VAD Filter     Skip silent segments during transcription
-Translation Beam    Beam width for MarianMT translation
-Length Penalty Penalizes shorter/longer translations (⧸1 favors longer output)
-Temperature    Sampling “diversity” parameter for translation
-Hover any control in the app for a tooltip with details.
+Setting Description
+VRAM Threshold  Minimum GPU memory for acceleration
+Beam Size Balance speed vs accuracy
+VAD Filter  Skip silent segments
+Project Structure 📂
+Whispa_App/
+├── src/                  # Source code
+│   └── whispa_app/       # Core modules
+│       ├── assets/       # Icons
+│       ├── ui/           # GUI components
+│       └── *.py          # Functionality
+├── installer/            # Inno Setup script
+└── Releases/             # Windows installers
+Contributing 🤝
+Fork the repository
 
-First-Run Model Download
-On first launch, Whispa App will automatically:
+Create feature branch:
+git checkout -b feature/new-feature
 
-Download Whisper weights for all five sizes
+Commit changes:
+git commit -m "Add awesome feature"
 
-Download MarianMT models for each supported language
+Push to branch:
+git push origin feature/new-feature
 
-Models are cached under %USERPROFILE%\.cache\huggingface and used offline thereafter. If a download fails, you’ll see an error dialog—just reconnect and retry.
+Open a Pull Request
 
-Troubleshooting
-“CMake” or “SentencePiece” errors when installing via pip?
-Ensure you have a prebuilt wheel:
+Note: Include tests for new features!
 
-bash
-Copy code
-pip install sentencepiece
-Or use the Windows installer to avoid build-from-source.
+License 📄
+MIT License - Full Text
+Copyright © 2025 Damilare Eniolabi
 
-GPU not detected?
-Install the CUDA-enabled PyTorch wheel:
+Acknowledgments 🙏
+OpenAI Whisper models
 
-bash
-Copy code
-pip install torch --index-url https://download.pytorch.org/whl/cu118
-Still stuck?
-Open an issue on GitHub or email below.
+MarianMT translation framework
 
-Support & Contribution
-GitHub: github.com/damoojeje/whispa_app
+Hugging Face Transformers library
 
-Email: damilareeniolabi@gmail.com
+CustomTkinter for modern GUI
 
-Contributions and feedback are welcome! Feel free to submit issues or PRs.
+Report Issues • Contact
