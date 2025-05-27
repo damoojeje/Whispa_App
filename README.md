@@ -1,107 +1,72 @@
-# Whispa App 🎙️➡️📝➡️🌍
+# Whispa App
 
-[![PyPI Version](https://img.shields.io/pypi/v/whispa-app)](https://pypi.org/project/whispa-app/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Windows Installer](https://img.shields.io/badge/Download-Windows_Installer-blue)](https://github.com/damoojeje/Whispa_App/releases/latest)
+A powerful GUI application for audio transcription and translation using OpenAI's Whisper model.
 
-**Audio Transcription & Translation Desktop GUI**  
-*Powered by OpenAI's Whisper and MarianMT*
+## Features
 
----
+- Transcribe audio files (WAV, MP3, M4A) to text
+- Translate transcriptions to multiple languages
+- Modern, customizable dark/light theme interface
+- Progress tracking for long operations
+- Automatic CPU/GPU detection and optimization
+- Support for all Whisper model sizes (tiny to large)
+- Local model caching for offline use
+- Detailed error reporting and user feedback
 
-## Features ✨
+## Installation
 
-- **Audio Transcription**  
-  Convert WAV/MP3/M4A files to text using 5 Whisper model sizes  
-  `tiny` | `base` | `small` | `medium` | `large`
-
-- **Text Translation**  
-  Supports Spanish, French, German, Chinese, Japanese
-
-- **System Monitoring**  
-  Real-time CPU/RAM/GPU usage stats
-
-- **Cross-Platform**  
-  Windows installer available • Python package for developers
-
----
-
-## Installation 🛠️
-
-### Windows Users
-[Download the installer](https://github.com/damoojeje/Whispa_App/releases/latest) (160MB)  
-1. Run `WhispaApp-Setup.exe`
-2. Follow installation prompts
-3. Launch from Start Menu
-
-### Python Developers
+### From PyPI (Recommended)
 ```bash
-# 1. Install CPU-optimized PyTorch
-pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install whispa-app
+```
 
-# 2. Install Whispa App
-pip install whispa_app
+### From Source
+```bash
+git clone https://github.com/damoojeje/Whispa_App.git
+cd Whispa_App
+pip install -r requirements.txt
+python -m whispa_app.main
+```
 
-# 3. Download models (first time)
-whispa --prefetch
+### Windows Installer
+Download the latest installer from the [Releases](https://github.com/damoojeje/Whispa_App/releases) page.
 
-# 4. Launch GUI
+## Usage
 
+1. Launch the app:
+   ```bash
+   whispa-app
+   ```
+   Or if installed from source:
+   ```bash
+   python -m whispa_app.main
+   ```
 
-Usage Guide 📖
-Quick Start
-Browse for an audio file
+2. Select an audio file using the "Browse" button
+3. Choose a model size (larger = more accurate but slower)
+4. Click "Transcribe" to start processing
+5. Once transcribed, select a target language and click "Translate"
+6. Use the "Save" buttons to export results
 
-Select Model:
-Model Selection
+## System Requirements
 
-Transcribe: Real-time progress tracking
+- Python 3.8 or higher
+- 4GB RAM minimum (8GB recommended)
+- GPU support (optional):
+  - NVIDIA GPU with CUDA support
+  - 6GB VRAM recommended for large models
 
-Translate: Choose target language
+## Contact & Support
 
-Save: Export as TXT or clipboard
+- Developer: Damilare Eniolabi
+- Email: damilareeniolabi@gmail.com
+- Website: www.eniolabi.com
+- GitHub: https://github.com/damoojeje/Whispa_App
 
-Advanced Settings
-Setting Description
-VRAM Threshold  Minimum GPU memory for acceleration
-Beam Size Balance speed vs accuracy
-VAD Filter  Skip silent segments
-Project Structure 📂
-Whispa_App/
-├── src/                  # Source code
-│   └── whispa_app/       # Core modules
-│       ├── assets/       # Icons
-│       ├── ui/           # GUI components
-│       └── *.py          # Functionality
-├── installer/            # Inno Setup script
-└── Releases/             # Windows installers
-Contributing 🤝
-Fork the repository
+## License
 
-Create feature branch:
-git checkout -b feature/new-feature
+MIT License - see LICENSE file for details.
 
-Commit changes:
-git commit -m "Add awesome feature"
+## Changelog
 
-Push to branch:
-git push origin feature/new-feature
-
-Open a Pull Request
-
-Note: Include tests for new features!
-
-License 📄
-MIT License - Full Text
-Copyright © 2025 Damilare Eniolabi
-
-Acknowledgments 🙏
-OpenAI Whisper models
-
-MarianMT translation framework
-
-Hugging Face Transformers library
-
-CustomTkinter for modern GUI
-
-Report Issues • Contact
+See [CHANGELOG.md](CHANGELOG.md) for version history.
