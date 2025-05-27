@@ -1,18 +1,71 @@
-from whispa_app.transcription import get_whisper_model
-from whispa_app.translation import MODEL_MAP, translate_text
+"""Prefetch Whisper models for offline use."""
+
+import os
+import sys
+import logging
+from pathlib import Path
+from faster_whisper import WhisperModel
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+def download_model(model_size: str, device: str = "cpu") -> None:
+    """
+    Download and cache a Whisper model.
+    
+    Args:
+        model_size: Model size (tiny, base, small, medium, large)
+        device: Device to use (cpu, cuda)
+    """
+    try:
+        # Normalize model size
+        model_size = model_size.replace("model_", "")
+        
+        # Set download path
+        if getattr(sys, "frozen", False):
+            # Running as compiled EXE
+            base_path = Path(sys.executable).parent
+        else:
+            # Running as script
+            base_path = Path(__file__).parent
+            
+        download_path = base_path / "models"
+        download_path.mkdir(exist_ok=True)
+        
+        logging.info(f"Downloading {model_size} model to {download_path}...")
+        
+        # Download model
+        WhisperModel(
+            f"Systran/faster-whisper-{model_size}",
+            device=device,
+            compute_type="int8" if device == "cpu" else "float16",
+            download_root=str(download_path)
+        )
+        
+        logging.info(f"Successfully downloaded {model_size} model")
+        
+    except Exception as e:
+        logging.error(f"Failed to download {model_size} model: {str(e)}")
+        raise
 
 def main():
-    sizes = ["tiny","base","small","medium","large"]
-    total = len(sizes) + len(MODEL_MAP)
-    step = 1
+    """Download all Whisper models."""
+    models = ["tiny", "base", "small", "medium", "large"]
+    device = "cpu"  # Default to CPU for compatibility
+    
+    logging.info("Starting model downloads...")
+    
+    for model in models:
+        try:
+            download_model(model, device)
+        except Exception as e:
+            logging.error(f"Skipping {model} model due to error: {str(e)}")
+            continue
+            
+    logging.info("Finished downloading models")
 
-    print(f"🔄 Prefetching {len(sizes)} Whisper + {len(MODEL_MAP)} translations")
-    for s in sizes:
-        print(f"[{step}/{total}] Whisper '{s}'")
-        get_whisper_model(s, "cpu")
-        step += 1
-    for lang in MODEL_MAP:
-        print(f"[{step}/{total}] Translation '{lang}'")
-        translate_text("Hello", lang)
-        step += 1
-    print("✅ Caching complete.")
+if __name__ == "__main__":
+    main()

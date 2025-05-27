@@ -17,6 +17,7 @@ Classifier: Topic :: Multimedia :: Sound/Audio
 Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
+License-File: LICENSE
 License-File: License.txt
 Requires-Dist: customtkinter>=5.1.1
 Requires-Dist: psutil>=5.9.0
@@ -33,126 +34,177 @@ Dynamic: home-page
 Dynamic: license-file
 Dynamic: requires-python
 
-# Whispa App
+# Whispa App 🎙️
 
-**Audio Transcription & Translation Tool**  
-Version: 2.1.0
+[![PyPI Version](https://img.shields.io/pypi/v/whispa-app)](https://pypi.org/project/whispa-app/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/whispa-app)](https://pypi.org/project/whispa-app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Downloads](https://pepy.tech/badge/whispa-app)](https://pepy.tech/project/whispa-app)
+[![Windows Build](https://img.shields.io/badge/Windows-Installer-blue)](https://github.com/damoojeje/whispa_app/releases/latest)
 
----
+A powerful desktop application for audio transcription and translation, powered by OpenAI's Whisper and MarianMT.
 
-## Overview
+## ✨ Features
 
-Whispa App is a desktop GUI for:
+### 🎙️ Audio Transcription
+- Support for multiple audio formats (WAV, MP3, M4A, FLAC, OGG)
+- 5 Whisper model sizes for speed/accuracy tradeoff:
+  - `tiny` (fast, less accurate)
+  - `base` (balanced)
+  - `small` (recommended)
+  - `medium` (accurate)
+  - `large` (most accurate)
+- Real-time progress tracking
+- Voice Activity Detection (VAD)
 
-- **Transcribing** audio files to text using OpenAI’s **Whisper** models  
-- **Translating** the transcribed text into multiple target languages via **MarianMT**
+### 🌍 Translation
+- Support for multiple languages:
+  - English
+  - Spanish
+  - French
+  - German
+  - Chinese
+  - Japanese
+- Real-time translation progress
+- Preserve formatting and timestamps
 
-Built with:
-- **Python 3.10+**
-- **CustomTkinter** (modern Tkinter theming)
-- **PyTorch** and **faster-whisper** for transcription
-- **Transformers** and **MarianMT** for translation
-- **psutil** for live system stats
+### 💾 Export Options
+- Plain Text (.txt)
+- SubRip Subtitles (.srt)
+- WebVTT (.vtt)
+- JSON with timestamps
 
----
+### 🖥️ System Features
+- Modern, responsive GUI
+- Dark/Light theme
+- Real-time system monitoring
+- GPU acceleration (when available)
+- Anonymous telemetry (opt-out available)
 
-## Key Features
+## 🚀 Installation
 
-- **Five** Whisper model sizes: `tiny`, `base`, `small`, `medium`, `large`  
-- Translate into **Spanish**, **French**, **German**, **Chinese**, **Japanese**  
-- **Advanced settings**: VRAM threshold, beam sizes, VAD filter, temperature, length penalty  
-- **Progress bars** and real-time status updates  
-- **Local caching** for offline use after initial download  
-
----
-
-## System Requirements
-
-- **OS**: Windows 10 or later  
-- **Python**: 3.10 or higher (if installing via pip)  
-- **CPU** only by default; GPU supported via extra install  
-- **Internet**: Required only for first-run model downloads  
-
----
-
-## Installation
-
-### 📝 Option A: Windows Installer (Recommended)
-
-1. Download `WhispaApp-2.1.0-Setup.exe`.  
-2. Run the installer and follow the prompts.  
-3. A console window will show **pip** and **model** download progress.  
-4. Launch **Whispa App** from the Start Menu when done.
-
-### 🐍 Option B: pip (Requires Python Installed)
-
+### Method 1: PyPI (Recommended)
 ```bash
-# CPU-only
-pip install whispa_app[cpu]
+# Install from PyPI
+pip install whispa-app
 
-# (Optional) GPU support
-pip install torch --index-url https://download.pytorch.org/whl/cu118
-pip install whispa_app[gpu]
-
-
-# Download all models (first time only)
-whispa-prefetch
-
-# Launch the GUI
+# Launch the app
 whispa
+```
 
+### Method 2: Windows Installer
+1. Download the latest installer from [Releases](https://github.com/damoojeje/whispa_app/releases/latest)
+2. Run `WhispaApp-Setup.exe`
+3. Follow the installation wizard
+4. Launch from Start Menu
 
-Quick Start
-Browse for an audio file (.wav, .mp3, .m4a).
+### Method 3: From Source
+```bash
+# Clone the repository
+git clone https://github.com/damoojeje/whispa_app
+cd whispa_app
 
-Select a Whisper model size and click Transcribe.
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 
-Choose a target Language and click Translate.
+# Install dependencies
+pip install -r requirements.txt
 
-(Optional) Open Advanced to tweak VRAM, beam sizes, VAD, etc.
+# Install in editable mode
+pip install -e .
 
-Save results via File → Save Transcript/Save Translation.
+# Launch the app
+whispa
+```
 
-Advanced Settings
-Setting   What it does
-Min GPU VRAM (GB)   Minimum VRAM before falling back to CPU inference
-Transcription Beam  Beam width for Whisper (higher = more accurate, slower)
-VAD Filter     Skip silent segments during transcription
-Translation Beam    Beam width for MarianMT translation
-Length Penalty Penalizes shorter/longer translations (⧸1 favors longer output)
-Temperature    Sampling “diversity” parameter for translation
-Hover any control in the app for a tooltip with details.
+## 📦 First Run
 
-First-Run Model Download
-On first launch, Whispa App will automatically:
+On first launch, Whispa App will:
+1. Create necessary directories
+2. Download required models (if not present)
+3. Configure system settings
 
-Download Whisper weights for all five sizes
+Models are downloaded on-demand to save disk space:
+- Whisper models: 150MB - 2.9GB
+- Translation models: ~300MB per language
 
-Download MarianMT models for each supported language
+## 🛠️ Development
 
-Models are cached under %USERPROFILE%\.cache\huggingface and used offline thereafter. If a download fails, you’ll see an error dialog—just reconnect and retry.
+### Setup Development Environment
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
 
-Troubleshooting
-“CMake” or “SentencePiece” errors when installing via pip?
-Ensure you have a prebuilt wheel:
+# Install pre-commit hooks
+pre-commit install
+```
 
-bash
-Copy code
-pip install sentencepiece
-Or use the Windows installer to avoid build-from-source.
+### Run Tests
+```bash
+pytest
+```
 
-GPU not detected?
-Install the CUDA-enabled PyTorch wheel:
+### Build Documentation
+```bash
+cd docs
+make html
+```
 
-bash
-Copy code
-pip install torch --index-url https://download.pytorch.org/whl/cu118
-Still stuck?
-Open an issue on GitHub or email below.
+### Build Windows Installer
+```bash
+python scripts/build_installer.py
+```
 
-Support & Contribution
-GitHub: github.com/damoojeje/whispa_app
+## 📁 Project Structure
+```
+whispa_app/
+├── src/
+│   └── whispa_app/           # Main package
+│       ├── __init__.py
+│       ├── main.py           # Application entry
+│       ├── transcription.py  # Whisper integration
+│       ├── translation.py    # Translation logic
+│       ├── device.py        # Hardware management
+│       ├── telemetry.py     # Usage analytics
+│       ├── utils.py         # Utilities
+│       ├── exporters.py     # Export formats
+│       ├── ui/              # User interface
+│       └── assets/          # Resources
+├── tests/                   # Test suite
+├── docs/                    # Documentation
+├── scripts/                 # Build scripts
+└── requirements/            # Dependencies
+```
 
-Email: damilareeniolabi@gmail.com
+## 🤝 Contributing
 
-Contributions and feedback are welcome! Feel free to submit issues or PRs.
+1. Fork the repository
+2. Create a feature branch:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. Make your changes
+4. Run tests:
+   ```bash
+   pytest
+   ```
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [OpenAI Whisper](https://github.com/openai/whisper)
+- [faster-whisper](https://github.com/guillaumekln/faster-whisper)
+- [MarianMT](https://huggingface.co/Helsinki-NLP)
+- [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter)
+
+## 📫 Support
+
+- [Report a Bug](https://github.com/damoojeje/whispa_app/issues)
+- [Request a Feature](https://github.com/damoojeje/whispa_app/issues)
+- [Read the Documentation](https://whispa-app.readthedocs.io/)
